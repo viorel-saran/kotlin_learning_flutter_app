@@ -1,0 +1,153 @@
+____Ereditarietà____
+
+Kotlin ha un approccio single-parent class all’ereditarietà, infatti ogni classe ha esattamente una classe genitore, chiamata  superclasse e ogni sottoclasse eredita tutti i membri della sua superclasse  inclusi quelli eventualmente ereditati dalla superclasse.
+**Nota**
+Per superare il limite della singola superclasse, è possibile usare le interfacce,  perché una classe può implementarne più di una.
+
+Quindi per estendere una classe posso:
+
+    ● Aggiungere funzionalità ad una classe senza crearne una nuova  (extension functions)
+
+    ● Creare una nuova classe che usa una classe esistente come  base (sottoclasse)
+
+      Le classi in Kotlin sono ﬁnal (non subclassable) per default
+      Dichiariamo una classe:
+
+         class A
+
+      Proviamo a deﬁnire una sottoclasse:
+
+         class B : A()
+
+      =>Error: A is final and cannot be inherited from
+
+      Per questo si usare la keyword open per consentire il subclassing, per dichiarare una classe sarà possibile deﬁnirne sottoclassi.
+
+      Dichiarazione:
+        open class C
+
+      Sottoclasse di C:
+        class D: C()  //Come per le interfacce, ma qui si usano le parentesi  perché occorre chiamare il costruttore.
+
+      In conclusione bisogna usare open per le proprietà ed i metodi che possono essere  sovrascritti (altrimenti viene generato un errore in compilazione)
+      E' necessario usare override quando si sovrascrivono proprietà e metodi e
+      ogni cosa indicata come override può essere sovrascritta nelle  sottoclassi (a meno che non sia marcata come final, ed in quel  caso non potrà essere più ereditata)
+
+_-_-_Superclassi ed Interfacce_-_-_
+
+Se una classe eredita implementazioni multiple dello stessa funzione, ad  esempio da una classe e da un’interfaccia, occorre effettuare l’override
+
+        open class Rectangle {
+            open fun draw() { /* ... */ }
+        }
+
+        interface Polygon {
+            fun draw() { /* ... */ } // interface members are 'open' by default
+        }
+
+        class Square() : Rectangle(), Polygon {
+             // The compiler requires draw() to be overridden:
+             override fun draw() {
+                     super<Rectangle>.draw() // call to Rectangle.draw()
+                     super<Polygon>.draw() // call to Polygon.draw()
+             }
+        }
+…ma se l’interfaccia non avesse fornito l’implementazione, l’override non  sarebbe stato necessario perché Square ha già una implementazione della  funzione,. fornita da Rectangle
+
+        open class Rectangle {
+             open fun draw() { /* ... */ }
+        }
+
+        interface Polygon {
+             fun draw()
+        }
+
+        class Square() : Rectangle(), Polygon {
+        }
+
+____Classi Astratte____
+
+La classe viene marcata come abstract e non possono essere istanziate ma devono essere estese da  sottoclassi.
+Sono simili ad un’interfaccia, ma con la capacità di memorizzare dati (cioè  posseggono uno stato).
+Le proprietà e funzioni marcate abstract devono essere sovrascritte e possono includere proprietà e funzioni non astratte
+
+Esempio:
+
+        abstract class Food {
+            abstract val kcal : Int
+            abstract val name : String
+            val canBeEaten = true
+            fun consume() = println("I'm eating ${name}")
+        }
+        class Pizza() : Food() {
+             override val kcal = 600
+             override val name = "Pizza"
+        }
+        fun main() {
+            Pizza().consume()	// "I'm eating Pizza"
+        }
+
+____Classi Speciali____
+
+_-_-_Data Class_-_-_
+
+Una classe creata per memorizzare un insieme di dati ed è suﬃciente marcare la classe con la keyword data.
+Genera automaticamente i metodi getter per ogni proprietà (ed  i setter per le variabili var) e
+genera automaticamente anche i metodi toString(), equals(),  hashCode(), copy(), e gli operatori di destructuring
+
+        Formato: data class <NameOfClass>( parameterList )
+
+Esempio,deﬁniamo una data class:
+
+        data class Player(val name: String, val score: Int)
+
+Utilizziamo la data class:
+
+        val firstPlayer = Player("Lauren", 10)
+        println(firstPlayer) //viene implicitamente chiamato toString()
+        => Player(name=Lauren, score=10)
+
+Se una proprietà viene dichiarata nel corpo, non verrà valutata  nell’esecuzione di toString, equals, hashCode e copy
+
+        data class Person(val name: String) {
+             var age: Int = 0
+        }
+
+        val p1 = Person(“Pippo”)
+        p1.age = 25 // non viene valutata
+        val p2 = Person(“Pippo”)
+        println(p1 == p2) // si può usare anche al posto di equals
+        => true
+
+_-_-_Enum Class_-_-_
+
+Un tipo di dato deﬁnito dall’utente per un insieme di valori ﬁniti.
+Utilizza this per richiedere che le istanze siano uno dei valori costanti di  una lista ed il valore costante non è visibile di default.
+Utilizzare enum prima della keyword class.
+
+        Formato: enum class EnumName { NAME1, NAME2, … NAMEn }
+
+Si può accedere tramite EnumName.<ConstantName>
+Esempio, deﬁzione di un enum con tre colori:
+
+        enum class Color(val r: Int, val g: Int, val b: Int) {
+             RED(255, 0,0),GREEN(0, 255,0), BLUE(0,	0, 255)
+        }
+        println("" + Color.RED.r + " " + Color.RED.g	+ " " + Color.RED.b)
+        => 255 0 0
+
+_-_-_Object_-_-_
+
+A volte vogliamo che possa esistere una singola istanza di una  classe, quindi utilizziamo la keyword object invece di class.
+Si accede con NameOfObject.<function o variable> e possono essere incluse in altre classi
+
+Esempio:
+
+        object Singleton{
+             var variableName = "I am Var"
+             fun printVarName(){
+                 println(variableName)
+             }
+        }
+        ...
+        Singleton.variableName= "Nuovo valore"

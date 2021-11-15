@@ -1,0 +1,94 @@
+____Definizione di una Funzione_____
+
+Un blocco di codice che esegue un compito speciﬁco e divide un problema più grande in parti modulari più piccole.
+Viene dichiarata usando la keyword fun e può avere argomenti, i quali possono assumere valori di  default o nomi speciﬁci.
+
+Una semplice funzione che stampa a video "Hello World".
+
+        fun printHello() {
+            println("Hello World")
+        }
+
+        printHello()
+
+Se una funzione non ritorna alcun valore particolare, il suo tipo di ritorno è Unit.
+
+        fun printHello(name: String?): Unit {
+            println("Hi there!")
+        }
+
+Unit è un tipo con un solo possibile valore: Unit.
+La dichiarazione del tipo di ritorno Unit è opzionale:
+
+        fun printHello(name: String?): Unit {
+            println("Hi there!")
+        }
+
+ed è equivalente a non indicarlo:
+
+        fun printHello(name: String?) {
+            println("Hi there!")
+        }
+
+____Argomenti di una Funzione____
+
+Le funzioni possono avere:
+        ●Default parameters
+        ●Required parameters
+        ●Named arguments
+
+
+_-_-_Parametri di Default_-_-_
+
+I valori di default forniscono un fallback se non viene passato alcun parametro:
+
+        fun drive(speed: String = "fast") {
+        //si usa "=" dopo il tipo per definire un parametro di default
+            println("driving $speed")
+        }
+
+        drive() => driving fast
+        drive("slow") => driving slowly
+        drive(speed = "turtle-like") => driving turtle-like
+
+_-_-_Parametri Richiesti_-_-_
+
+Se nessun valore di default è speciﬁcato per un parametro, questo sarà obbligatorio  (required).
+
+        fun tempToday(day: String, temp: Int) {
+            println("Today is $day and it's $temp degrees.")
+        }
+
+_-_-_Parametri diDefault vs. Richiesti_-_-_
+
+Una funzione può avere sia parametri di default che obbligatori:
+
+        fun reformat(str: String,
+                     divideByCamelHumps: Boolean,
+                     wordSeparator: Char,
+                     normalizeCase: Boolean = true){ //Ha un valore di Default
+
+Passaggio dei parametri obbligatori:
+
+        reformat("Today is a day like no other day", false, '_')
+
+
+_-_-_Parametri Nominati_-_-_
+
+Per aumentare la leggibilità, si usano spesso argomenti con un nome (named) per  i parametri obbligatori:
+
+        reformat(str, divideByCamelHumps = false, wordSeparator = '_')
+
+**Nota**
+Viene considerata una best practice speciﬁcare i default arguments dopo quelli  posizionali, in modo che il chiamante possa indicare anche soltanto i primi e  tralasciare i secondi.
+
+____Funzioni Compatte____
+
+Le funzioni compatte, o single-expression functions, rendono il codice più conciso  e leggibile:
+
+        fun double(x: Int): Int {     //Versione Completa
+            x * 2
+        }
+
+
+        fun double(x: Int):Int = x * 2   //Versione Compatta

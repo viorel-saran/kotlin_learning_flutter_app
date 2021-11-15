@@ -1,0 +1,46 @@
+In Kotlin le funzioni possono essere memorizzate in variabili, strutture dati, possono anche essere passate come argomento ad (e ritornate da)  altre funzioni di ordine superiore (higher-order)
+Si possono usare le higher-order functions per creare nuove  funzioni "built-in"
+
+____Lambda Functions___
+
+Una lambda è un’espressione che crea una funzione senza nome.
+
+        var dirtLevel = 20
+        //{parametro e tipo -> codice da eseguire}
+        val waterFilter = {level: Int -> level/2}
+        //sintassi completa
+        //val waterFilter:(Int)-> Int = {level -> level/2}
+        println(waterFilter(dirtLevel))
+
+        =>10
+
+____Funzioni di Ordine Superiore____
+
+Le higher-order functions sono funzioni che prendono altre funzioni come  parametro, oppure come tipo di ritorno.
+
+        fun encodeMsg(msg: String, encode: (String) -> String): String {
+            return encode(msg)
+        }
+
+**Nota**
+encodeMsg chiama la funzione che le è stata passata come secondo argomento,  e le passa il primo argomento come parametro.
+
+Per chiamare questa funzione, occorre passare come parametri una stringa ed  una funzione:
+
+        val enc1: (String) -> String = { input -> input.toUpperCase() }
+        println(encodeMsg("abc", enc1))	//passo una lambda function
+
+Usare un tipo di funzione aiuta a separare la sua implementazione dal suo utilizzo.
+Si può anche usare l’operatore :: per passare una funzione con nome come argomento  di un’altra:
+
+        fun enc2(input:String): String = input.reversed()
+
+        encodeMsg("abc", ::enc2)//passaggio di una funzione con nome (non una lambda function)
+
+Kotlin preferisce che l’eventuale parametro che prende una funzione sia posto per  ultimo:
+
+        encodeMessage("acronym", { input -> input.toUpperCase() })
+
+E’ anche possibile passare una funzione lambda come parametro senza inserirla  tra le parentesi, ma immediatamente fuori:
+
+        encodeMsg("acronym") { input -> input.toUpperCase() }

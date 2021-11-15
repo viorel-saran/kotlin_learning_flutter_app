@@ -1,0 +1,59 @@
+____Stringhe____
+
+Le stringhe non sono altro che sequenze di caratteri racchiuse da doppi apici.
+
+        val s1 = "Hello world!"
+
+Il testo contenuto in una stringa può contenere caratteri di escape.
+
+        val s2 = "Hello world!\n"
+
+Oppure del testo qualsiasi se racchiuso da tre doppi apici (""").
+
+        val text = """  var bikes = 50"""
+
+Le stringhe possono anche essere concatenate una all’altra attraverso l’operatore "+" o "plus" o "StringBuilder",esempio:
+
+        val first = “Hello”
+        val second = “ world”
+        val stringaFinale = first+second
+
+ oppure
+
+        val stringaFinale = first.plus(second)
+
+ oppure
+
+        val builder = StringBuilder()
+        builder.append("Hello")
+               .append(" ")
+               .append("world")
+
+**Nota**
+Con StringBuilder non viene creato un nuovo oggetto Stringa ogni volta che  usiamo l’operatore di concatenazione, ma una sola volta alla ﬁne. Utile se  vanno concatenate molte stringhe tra loro.
+
+
+____Stringhe templates____
+
+Una template expression inizia con un simbolo di dollaro ($) e può contenere un  singolo valore.
+
+        val i = 10  println("i = $i")
+        => i = 10
+
+Oppure un’espressione all’interno di parentesi graffe:
+
+        val s = "abc"
+        println("$s.length is ${s.length}")
+        => abc.length is 3
+
+        val numberOfShirts = 10
+        val numberOfPants = 5
+        println("I have ${numberOfShirts + numberOfPants} items of clothing")
+        => I have 15 items of clothing
+
+E’ anche possibile utilizzare i template insieme alle concatenazioni.
+
+        val numberOfDogs = 3
+        val numberOfCats = 2
+        println("I have $numberOfDogs dogs" + " and $numberOfCats cats")
+        => I have 3 dogs and 2 cats

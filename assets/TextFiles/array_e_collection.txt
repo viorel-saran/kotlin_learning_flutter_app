@@ -1,0 +1,198 @@
+
+____Definizione Array____
+
+L’array è una struttura dati che viene utilizzata per contenere molteplici elementi.
+ I vari elementi contenuti al suo interno possono essere acceduti programmaticamente tramite il loro indice(indicato tra parentesi quadre [*]) e sono mutable, quindi modificabili; mentre la dimensione di un array non può  variare, è fissa.
+Un array  può essere creato tramite il termine  arrayOf().
+
+        val pets = arrayOf("dog", "cat", "canary")
+        println(pets.contentToString())
+        => [dog, cat, canary]
+
+**Nota**
+Se un array è deﬁnito val, non si può cambiare il riferimento, ma è possibile  cambiarne il contenuto, esempio:
+
+        val x=arrayOf(1,2,3)
+
+        x=arrayOf(4,5,6)
+        => Error: val cannot be reassigned
+
+        x[0]=2
+        => Correct
+
+Un array in Kotlin può contenere tipi diversi:
+
+        val mix = arrayOf("hats", 2)
+
+Oppure un tipo solo (ad esempio interi):
+
+        val numbers = intArrayOf(1, 2, 3)
+
+L’uso dell’operatore “+” consente di combinare due array:
+
+        val numbers = intArrayOf(1,2,3)
+        val numbers2 = intArrayOf(4,5,6)
+        val combined = numbers2 + numbers
+        println(Arrays.toString(combined))
+
+        => [4, 5, 6, 1, 2, 3]
+
+Esistono alcuni metodi utili che possono essere utilizzati con gli array, esempio:
+
+        ~var nullArray:Array<String?> = arrayOfNulls(2)
+         => crea un array di dimensione 2 inizializzato con valori nulli
+
+        ~Val size = array.size
+         =>Restituisce la dimensione dell’array
+
+        ~Array.reverse()
+         =>inverte l’ordine degli elementi dell’array
+
+        ~Val isIn=array.contains(1)
+         =>Verifica se l’array contiene l’elemento passato
+
+        ~val sum = array.sum()
+         =>calcola la somma di tutti gli elementi, se questi sono numerici
+
+        ~val average = array.average()
+         =>ritorna la media degli elementi presenti nell'array se numerici
+
+        ~array.min()/array.max()
+         =>ritorna il numero più piccolo o grande contenuto nell'array
+
+        ~array.sort()
+         =>organizza l'array in ordine naturale e funziona per numeri,stringhe,char e boolean
+
+
+
+____Collections____
+
+Le Collections sono utilizzate per memorizzare un numero variabile di  oggetti (elementi o items) dello stesso tipo. Le principali sono:
+
+        1).List
+        2).Set
+        3).Map
+Esistono due varianti per ciascun tipo di collection:
+
+        ~read-only, in cui è possibile solo accedere agli elementi
+
+        ~mutable, che estende le prime con metodi per aggiungere,  modiﬁcare, rimuovere elementi
+
+Attenzione: non stiamo parlando di var vs val, ma di collection che  possono essere modiﬁcate oppure no
+
+_-_-_Liste_-_-_
+
+Le liste sono collezioni ordinate di elementi che possono ripetersi, quindi posso avere duplicati, e come gli array possono essere accedute tramite i loro indici.
+
+Dichiaro una lista usando listOf():
+
+        val instruments = listOf("trumpet", "piano", "violin")
+        println(instruments)
+        println(instruments.size)
+        println(instruments[1])
+        println(instruments.get(2))
+
+        =>[trumpet, piano, violin]
+        =>3
+        =>piano
+        =>violin
+
+Una lista può essere deﬁnita mutable usando mutableListOf()
+
+        val myList = mutableListOf("trumpet", "piano", "violin")
+        myList.remove("violin")
+
+        => kotlin.Boolean = true
+
+**Nota**
+Se una lista è dichiarata val, ciò che non può cambiare è l’oggetto a cui si  riferisce la variabile, mentre il suo contenuto può farlo.
+
+Alcuni metodi utili da utilizzare con le liste:
+
+        ~add(elem: E) : Boolean /aggiungere un elemento
+
+        ~addAll(col: Collection<E>): Boolean /aggiunge una collection alla lista
+
+        ~set(ind: Int, elem: E) / sostituisce l’elemento ind-esimo con elem
+
+        ~remove(elem: E) / rimuove l’elemento indicato
+
+        ~removeAt(ind: Int) / rimuove un elemento dalla posizione indicata
+
+        ~clear() /  svuota la lista
+
+        ~lastIndex() //ritorna l’indice dell’ultimo elemento
+
+        ~subList(from:Int, to:Int) //ritorna la mutableList nel range indicato
+
+        ~indexOf(elem: E) / ritorna l’indice del primo elemento uguale a elem
+
+E' possibile confrontare se due liste sono uguali (==) se hanno la stessa dimensione ed elementi  strutturalmente equivalenti nelle stesse posizioni:
+
+        val bob= Person("Bob", 31)
+        val people= listOf(Person("Adam", 20), bob, bob)
+        val people2= listOf(Person("Adam", 20), person("Bob", 31), bob)
+        println(people== people2)
+        bob.age=32
+        println(people== people2)
+
+        => true
+           false
+
+_-_-_Set_-_-_
+
+Set viene usato per memorizzare elementi unici senza duplicazioni (anche il null  può comparire una sola volta) e in questo caso due set sono uguali se hanno la stessa dimensione  e gli stessi elementi (in qualsiasi ordine).
+L’implementazione di default è quello del  LinkedHashSet che mantiene l’ordine degli elementi  (opzionalmente si può usare HashSet che non  mantiene un ordine ma è più eﬃciente)
+
+Esempi:
+
+        val numbers = setOf(1, 2, 3, 4)
+        println("Number of elements: ${numbers.size}")
+        if (numbers.contains(1)) println("1 is in the set")
+
+        val numbersBackwards = setOf(4, 3, 2, 1)
+        println("The sets are equal: ${numbers == numbersBackwards}")
+
+        =>Number of elements: 4
+          1 is in the set
+          The sets are equal: true
+
+        val numbers = setOf(1, 2, 3, 4)  // LinkedHashSet is the default implementation
+        val numbersBackwards = setOf(4, 3, 2, 1)
+
+        println(numbers.first() == numbersBackwards.first())
+        println(numbers.first() == numbersBackwards.last())
+
+        =>false
+          true
+
+_-_-_Map_-_-_
+
+Sebbene non erediti dalla classe Collection, è comunque un tipo  particolare di collection, che memorizza coppie key-value, dove  le key sono uniche, inoltre una Map viene implementata come  LinkedHashMap, che mantiene l’ordine  di inserimento degli elementi, mentre  HashMap non lo fa.
+
+Esempio:
+
+        val numbersMap = mutableMapOf("one" to 1, "two" to 2)
+        numbersMap.put("three", 3)
+        numbersMap["one"] = 11
+        println(numbersMap)
+        println("All keys: ${numbersMap.keys}")
+        println("All values: ${numbersMap.values}")
+        if ("key2" in numbersMap) println("Value by key \"key2\": ${numbersMap["key2"]}")
+        if (1 in numbersMap.values) println("The value 1 is in the map")
+        if (numbersMap.containsValue(1)) println("The value 1 is in the map")
+
+        =>{one=11, two=2, three=3}
+          All keys: [key1, key2, key3, key4]
+          All values: [1, 2, 3, 1]
+          Value by key "key2": 2
+          The value 1 is in the map
+          The value 1 is in the map
+
+Due map che contengono coppie equivalenti sono uguali indipendentemente dall'ordine delle coppie.
+
+        val numbersMap = mapOf("key1" to 1, "key2" to 2, "key3" to 3, "key4" to 1)
+        val anotherMap = mapOf("key2" to 2, "key1" to 1, "key4" to 1, "key3" to 3)
+        println("The maps are equal: ${numbersMap == anotherMap}")
+
+        =>The maps are equal: true

@@ -1,0 +1,131 @@
+____Espressioni If/Else____
+
+Le Espressioni if/else vengono utilizzate per verificare se determinate condizione sono vere o false e di conseguenza svolgere determinate azioni diversificate per entrambi i casi.
+
+        val numberOfCups=30
+        val numberOfPlates=50
+        if(numberOfCups > numberOfPlates) {
+        println("Too many cups!")
+        }else {
+        println("Not enough cups!")
+        }
+
+        => Not enough cups!
+
+E’ possibile avere anche degli if/else concatenati.
+
+        val guests=30
+        if (guests == 0) {  println("No guests")
+        }else if(guests < 20) {
+        println("Small group of people")
+        }else {
+        println("Large group of people!")
+        }
+
+        =>Large group of people!
+
+
+____Range____
+
+Sono dei Data type che contengono un insieme di valori comparabili (ad esempio, gli interi da 1 a 100 inclusi), quindi sono intervalli chiusi, in cui si speciﬁca il limite inferiore, due  puntini ed il limite superiore (ad esempio, 1..100), i cui gli oggetti contenuti in un range possono essere mutable  o immutable.
+
+        val numberOfStudents = 50
+        if (numberOfStudents in 1..100) {
+        println(numberOfStudents)
+        }
+
+        => 50
+
+**Nota**
+Non ci sono spazi attorno all’operatore di range (1..100)
+
+
+____Espressioni e Statement When____
+
+L’espressione when è simile all’espressione switch, infatti in base alla natura di una certa variabile, posso decidere diverse serie di azioni.
+L’espressione when può essere utilizzata come espressione e/o statement.
+Espressioni e statement sono due concetti diversi:
+
+  °Un’ "espressione" è qualsiasi porzione di codice ritorni un valore, esempio:
+
+          ~1+1
+          ~sumOf(1,2,3)
+  **Nota**
+  Ciascuna funzione in Kotlin ritorna qualcosa, incluso println().
+
+  Esempio con when espressione:
+
+          val risultato= when{
+              bmi < 18.5 -> ”Sottopeso”
+              bmi < 25 -> 0”Normopeso”
+              else -> ”Sovrappeso”
+
+
+  °Un "statement" è qualsiasi porzione di codice non produca valori di ritorno,esempio:
+
+          ~Dichiarazioni di variabili,
+           es: val x = 1
+          ~Assegnamento,
+           es: x = 20 (a differenza di Java)
+          ~Dichiarazione di classi locali,
+           es: class A{}
+
+  Esempio con when statement:
+
+          when (results) {
+                0 -> println("No results")
+                in 1..39 -> println("Got results!")
+                else -> println("That's a lot of results!")}
+
+          => That's a lot of results!
+
+
+____Cicli For____
+
+I cicli vengono utilizzati quando ho bisogno di ripetere delle azioni una serie di volte o finché una determinata condizione si verifica.
+In Kotlin nel ciclo for non è necessario definire una variabile per iterare, e si può iterare  anche su stringhe, array, range…
+
+        val pets = arrayOf("dog", "cat", "canary")
+        for (element in pets) {
+             print(element + " ")
+            }
+
+        => dog cat canary
+
+        for (c in "I like Pink Floyd") {
+             print(c)
+            }
+
+        => I like Pink Floyd
+
+**Nota**
+La variabile element viene automaticamente dichiarata val, dunque non  può essere modiﬁca all’interno del ciclo.
+
+Ecco alcuni esempi di iterazione con il ciclo for:
+
+        ~for (i in 1..5) print(i)  => 12345
+        ~for (i in 5 downTo 1) print(i)  => 54321
+        ~for (i in 3..6 step 2) print(i)  => 35
+        ~for (i in 'd'..'g') print (i)  => defg
+
+
+____Cicli While____
+
+Il ciclo while svolge la stessa funzione del ciclo for, ma a differenza di quest’ultimo è necessario aggiornare la variabile di iterazione manualmente.
+
+        var bicycles = 0
+        while (bicycles < 50) {
+               bicycles++
+              }
+        println("$bicycles bicycles in the bicycle rack\n")
+
+        => 50 bicycles in the bicycle rack
+
+
+        do {
+            bicycles--
+           }
+        while (bicycles > 50)
+            println("$bicycles bicycles in the bicycle rack\n")
+
+        => 49 bicycles in the bicycle rack

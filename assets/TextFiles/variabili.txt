@@ -1,0 +1,75 @@
+____Tipi di Dati____
+
+I dati che utilizziamo nei nostri programmi hanno diversi tipo.
+
+Tipi con valori interi come:
+
+Tipo                Bits         Range
+~Long               64           Da -263 a 263-1\n
+~Int                32           Da -231 a 231-1\n
+~Short              16           Da -32768 a 32767\n
+~Byte                8           Da -128 a 127\n
+
+Tipi con valori con la virgola e altri come:
+
+Tipo                Bits         Range
+~Double             64           15 - 16 cifre decimali
+~Float              32           6 - 7 cifre decimali
+~Char               16           16-bit caratteri Unicode
+~Boolean             8           True o false
+
+____Operatori____
+
+Esistono diversi tipi di operatori:
+
+~Operatori matematici                        +  -  *  /  %
+~Operatori di incremento e decremento        ++  --
+~Operatori di confronto                      <  <= >  >=
+~Operatori di assegnamento                   =
+~Operatori di uguaglianza                    == !=
+
+Nel caso di operatori matematici i risultati di queste operazioni, non ritornano un semplice numero di tipo primitivo, ma un oggetto di quel tipo, per esempio:
+
+       ~1+1=2         => kotlin.Int
+       ~53-3=50       => kotlin.Int
+       ~50/10=5       => kotlin.Int
+       ~1.0/2.0=0.5   => kotlin.Double
+       ~2.0*3.5=7.0   => kotlin.Double
+
+
+Per questo motivo è possibile utilizzare alcune funzioni su di esso come:
+
+       ~2.times(3)     => kotlin.Int = 6
+       ~3.5.plus(4)    => kotlin.Double=7.5
+       ~2.4.div(2)     => kotlin.Double=1.2
+
+____Variabili____
+
+Le variabili sono un potente meccanismo di inferenza di tipo, che può essere esplicitato manualmente o automaticamente inferto dal compilatore. Infatti Kotlin è un linguaggio statically-typed.
+
+       var width: Int = 12  => kotlin.Int
+       var length = 2.5     => kotlin.Double\n
+
+ Il tipo è determinato a compile time e  non può cambiare,perciò una volta che il tipo è stato dichiarato esplicitamente o inferito  dal compilatore, non può cambiare o viene generato un errore.
+Esistono due tipologie generali di variabili quelle mutabili (var) e quelle immutabili (val).
+
+        var count = 1
+        count = 2
+        =>Corretto
+
+        val size = 1
+        size = 2
+        => Error: val cannot be reassigned
+
+Inoltre in Kotlin non è possibile effettuare un casting implicito, ma va sempre esplicitato.
+
+        val i: Int = 6
+        val b: Byte = i
+        println(b)
+        => error: type mismatch: inferred type is Int but Byte was expected
+
+        val i: Int = 6
+        val b: Byte = i.toByte()
+        println(b)
+        => 6
+

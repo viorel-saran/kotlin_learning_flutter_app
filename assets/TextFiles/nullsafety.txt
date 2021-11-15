@@ -1,0 +1,81 @@
+____ Definizione Null-Safety____
+
+
+Molti linguaggi, come il Java, consentono ad una variabile di assumere il  valore null, ma se il null viene trattato come un valore normale, possono veriﬁcarsi problemi  critici.
+Per questo in Kotlin di default, i tipi non possono essere mai nulli (cioè sono non-nullable).
+Proviamo a dichiarare una variabile Int e assegnarle il valore null:
+
+        var numberOfBooks: Int = null
+        => error: null can not be a value of a non-null type Int
+
+E' necessario consentire dei meccanismi per dichiarare esplicitamente dei tipi che  potrebbero contenere valori nulli (cioè nullable).
+
+        ● E’ possibile assegnare esplicitamente un valore null ad una  variabile tramite il safe-call operator “?”
+	● E’ possibile testare la presenza di valori nulli con l’operatore elvis  “?:”
+	● E’ possibile consentire null-pointer exceptions tramite  l’operatore “!!”
+
+
+_-_-_Safe_call Operator_-_-_
+
+Dichiariamo la variabile di tipo Int? come “nullable”:
+
+        var numberOfBooks: Int? = null
+
+Il safe call operator (?) dopo il tipo indica che una variabile potrebbe essere null.
+In  questo modo stiamo speciﬁcando un tipo diverso.
+
+**Nota**
+In generale, è meglio non settare mai una variabile a null perché potrebbe  comportare conseguenze indesiderate.
+
+Se una variabile è nullable, non è possibile dereferenziarla (cioè accedere all’oggetto  a cui punta) direttamente.
+
+        val s1: String = “abc”
+        val s2: String? = s1
+        println(s2.length) / non compila
+
+Prima del dereferenziamento è necessario veriﬁcare che non sia nulla.
+Quindi controlliamo se la variabile numberOfBooks non è null. Poi decrementiamo la variabile:
+
+        var numberOfBooks = 6
+        if(numberOfBooks != null) {
+        numberOfBooks = numberOfBooks.dec()
+        }
+
+Si può fare la stessa cosa in modo più conciso usando il safe call operator:
+
+        var numberOfBooks = &
+        numberOfBooks =numberOfBooks?.dec()
+
+        val a = "Kotlin"
+        val b: String? = null
+        println(b?.length)
+        println(a?.length) // Unnecessary safe call
+
+        =>null
+          6
+
+
+_-_-_Operatore Elvis_-_-_
+
+Alcuni linguaggi hanno un null coalescing operator, che testa se una variabile è nulla, e in caso produce un valore convenzionale.
+In Kotlin, l’operatore (?: ) consente di determinare un valore alternativo valido nel caso in cui la variabile sia nulla:
+
+        numberOfBooks = numberOfBooks?.dec() ?: 0
+
+Quando hai un riferimento nullable, b, puoi dire "se b non è null, usalo, altrimenti usa un valore non nullo":
+
+        val l: Int = if (b != null) b.length else -1
+
+Invece di scrivere l'espressione if completa, puoi anche esprimerla con l'operatore di "Elvis ?:":
+
+        val l = b?.length ?: -1
+
+_-_-_L'operatore !!_-_-_
+
+Se siamo certi che una variabile non sarà nulla, possiamo usare una non-null  assertion (!!) per forzare l’interpretazione della variabile come non nullable.
+ A  questo punto è possibile eseguire qualsiasi metodo su di essa.
+
+        val len = s!!.length //throws NullPointerException if s is null
+
+**Nota**
+Dato che !! lancia un’eccezione nel caso la variabile sia nulla,  sarebbe preferibile usarla di rado.

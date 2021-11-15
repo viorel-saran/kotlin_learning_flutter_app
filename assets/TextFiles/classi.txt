@@ -1,0 +1,182 @@
+____Definizione di Classi______
+
+Le classi non sono altro che contenutori che descrivono le caratterische e le funzioni di un relativo oggetto.
+Le variabili descrivono le proprietà dell'oggetto, mentre i metodi, le azioni che quell'oggetto può compiere e per essere utilizzati vengono dichiarate delle istanze di quello oggetto, da cui si può accedere alle relative proprietà o applicare le sue relative funzioni.
+
+Definizione di una classe:
+
+        class House {
+          val color: String = "white"
+          val numberOfWindows: Int = 2
+          val isForSale: Boolean = false
+
+          fun updateColor(newColor: String){...}
+          ...
+        }
+
+Creazione di un'istanza
+
+        val myHouse = House()  println(myHouse)
+
+____Costruttori____
+
+Un costruttore viene deﬁnito nell’intestazione della classe e può contenere:
+        ●Nessun parametro
+
+         class A
+
+        ●Parametri
+
+         ~Non marcati con var or val → la variabile esiste nell’ambito del costruttore  o nel corpo della funzione ma solo per inizializzare delle variabili
+
+           class B(x: Int)
+
+         ~Marcati var or val → la variabile è trattata come una proprietà della classe
+
+           class C(val y: Int)
+
+Esempi:
+
+   class A   =>    val aa = A()
+
+   class B(x: Int)   =>   val bb = B(12)
+                          println(bb.x)
+                          => compiler error unresolved
+                             reference
+
+   class C(val y: Int)   =>   val cc = C(42)
+                              println(cc.y)
+                              => 42
+
+Le istanze di una classe possono avere valori di default, in questo modo si ha una sintassi più concisa (si evitano varianti multiple dei costruttori)
+I parametri di default  possono essere usati assieme a parametri obbligatori
+
+        class Box(val length: Int, val width:Int = 20, val height:Int = 40)
+        val box1 = Box(100, 20,	40)
+        val box2 = Box(length =	100)
+        val box3 = Box(length =	100, width = 20, height = 40)
+
+_-_-_Blocchi di Inizializzazione_-_-_
+
+Se necessario è possibile eseguire il codice di inizializzazione  in uno speciale blocco init, che diventa il corpo del costruttore principale e sono consentiti più blocchi init.
+
+Esempio:
+
+        class Square(val side: Int) {
+             init {
+                  println(side * 2)
+             }
+        }
+
+
+        val s = Square(10)
+        => 20
+
+Si usa la keyword constructor per deﬁnire dei costruttori secondari, però questi ultimi devono chiamare (delegare):
+
+  ● Il costruttore principale usando la keyword this
+OPPURE
+  ● Un altro costruttore secondario che a sua volta chiamerà il  costruttore primario
+
+Non è obbligatorio deﬁnire il corpo di un costruttore secondario
+
+Esempio:
+
+        class Circle(val radius:Double) {
+             constructor(name:String) : this(1.0)
+             constructor(diameter:Int) : this(diameter / 2.0) {
+                 println("in diameter constructor")
+             }
+             init {
+                 println("Area: ${Math.PI * radius * radius}")
+             }
+        }
+        val c = Circle(3)    //stampa: Area: 7.0685834705770345
+                                       in diameter constructor
+
+
+        val c1 = Circle(2.5)    //stampa: Area: 19.634954084936208
+        val c2 = Circle("mio Cerchio")     //stampa: Area: 3.141592653589793
+
+_-_-_Proprietà_-_-_
+
+Le proprietà sono variabili deﬁnite in una classe e possono essere dichiarate val o var.
+L’accesso alle proprietà in lettura e la modiﬁca delle proprietà(solo se  dichiarata var) avviene con la dot notation  (esempio: variabile.proprietà)
+
+        class Person(var name: String)
+
+        fun main() {
+            val person = Person("Alex")
+            println(person.name)  // Accesso con .<property name>
+            person.name  "Joey"   //Modifica con .<property name>
+            println(person.name)
+        }
+
+        =>Alex
+          Joey
+
+Normalmente, le proprietà dichiarate non-nullable devono essere inizializzate nel costruttore, ma questo a volte non è conveniente (ad esempio se le inizializzo in un metodo speciﬁco o tramite dependency-injection).
+Kotlin permette la deﬁnizione di proprietà non-nullable che possono non essere inizializzate, utilizzando la keyword lateinit.
+
+       lateinit var subject: TestSubject
+
+Le condizioni del suo utilizzo sono:
+
+   ● La proprietà deve essere var (altrimenti non potremmo inizializzarla dopo)
+   ● La proprietà è dichiarata nel corpo della classe (e non nel costruttore primario)
+   ● Il tipo deve essere non nullable
+   ● Il tipo non deve essere “primitivo” (nel senso di Java, ossia Int, Double,...)
+
+Esempio:
+
+        class Dipartimento(val nome: String)
+        class Persona(val nome: String){
+              lateinit var dipart: Dipartimento
+
+              fun config(){
+                  dipart = Dipartimento("DII")
+              }
+
+              //O tramite injection dall’esterno
+              fun config(d: Dipartimento){
+                  dipart = d
+              }
+
+
+
+
+
+_-_-_Getter e Setter Personalizzati_-_-_
+
+Se non si vuole l’approccio di default per leggere/modiﬁcare una variabile, è possibile definire dei get e set personalizzati per una determinata variabile:
+
+         Formato: var propertyName: DataType = initialValue
+                      get() = ...
+                      set(value) {
+                                  ...
+                      }
+
+Esempio getter personalizzato:
+
+        class Person(val firstName: String, val lastName:String) {
+             val fullName:String
+             get() {
+                 return "$firstName $lastName"
+             }
+        }
+
+        val person = Person("John", "Doe")
+        println(person.fullName)
+        => John Doe
+
+Esempio setter personalizzato:
+
+       var fullName:String = ""
+           get() = "$firstName $lastName"
+           set(value) {
+              val components = value.split(" ")
+              firstName = components[0]
+              lastName = components[1]
+              field = value
+           }
+        person.fullName = "Jane Smith"
