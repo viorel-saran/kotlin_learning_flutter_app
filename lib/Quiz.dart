@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
 
 import 'package:kotlin_learning_flutter_app/HomePage.dart';
-import 'Domade1-4.dart';
+import 'Domande.dart';
 import 'Domanda5.dart';
 
 
