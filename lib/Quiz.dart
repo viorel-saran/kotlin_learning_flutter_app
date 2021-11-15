@@ -150,7 +150,7 @@ class QuizState extends State<Quiz> {
                 (risposta) => Risposta(
                   risposta: risposta['risposte'],
                   answerTap: () {
-                    if (rispostaInserita) {return;} //do la possibilita di scegliere una risposta una volta
+                    if (rispostaInserita) {return;} //do la possibilita di scegliere una risposta una sola volta
 
                     rispostaData(risposta['score']);//rilevo il tap della risposta e prendo lo score
                                                     //se score=true risposta giusta

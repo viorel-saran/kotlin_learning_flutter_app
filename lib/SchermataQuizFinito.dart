@@ -4,17 +4,23 @@ import 'HomePage.dart';
 
 class SchermataQuizFinito extends StatelessWidget {
 
-   int scoreparziale;
-   String argomentoquiz;
+   int scoretotale;
 
-   SchermataQuizFinito({ this.scoreparziale, this.argomentoquiz });
+   SchermataQuizFinito({ this.scoretotale});
 
    //al passaggio dalla domada5 alla schermatquizfinito controllo lo score e prendo l'immagine
-   controllerImmaggine(scoreparziale){
-     if(scoreparziale>=3){
+   controllerImmaggine(scoretotale){
+     if(scoretotale>=3){
        return Image.asset('assets/images/good_result.png');
      }else{
        return Image.asset("assets/images/bad_result.jpg");
+     }
+   }
+   controllerTesto(scoretotale){
+     if(scoretotale>=3){
+       return Text('HAI SBLOCCATO L\'ARGOMENTO SUCCESSIVO');
+     }else{
+       return Text("MI DISPIACE, RIPROVA IL QUIZ");
      }
    }
 
@@ -37,12 +43,12 @@ class SchermataQuizFinito extends StatelessWidget {
                   width: 243,
                   height:243,
                   child: Center(
-                      child:controllerImmaggine(scoreparziale),
+                      child:controllerImmaggine(scoretotale),
                   )),//immagine
               SizedBox(height: 48),
               Container(child: Center(child: Text("PUNTEGGIO", style: TextStyle(fontSize: 24),),),),
-              Container(child: Center(child: Text('${scoreparziale}'+'/5', style: TextStyle(fontSize: 24)),),),
-              Container(child: Center(child: Text("HAI SBLOCCATO L'ARGOMENTO SUCCESSIVO"),),),
+              Container(child: Center(child: Text('${scoretotale}'+'/5', style: TextStyle(fontSize: 24)),),),
+              Container(child: Center(child: controllerTesto(scoretotale),),),
               SizedBox(height: 110),
               Center(
                 child: Container(

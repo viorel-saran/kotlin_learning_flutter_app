@@ -210,15 +210,14 @@ class _Q5State extends State<Q5> {
                     widget.scoreparziale++;
                   }
 
-                  String a = widget.argomentoquiz;
-                  int b = widget.scoreparziale;
-                  SaveData(a, b);
+                  String arg = widget.argomentoquiz;
+                  int scoretotale = widget.scoreparziale;
+                  SaveData(arg, scoretotale);
 
                    Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => SchermataQuizFinito(scoreparziale: widget.scoreparziale,
-                                                                  argomentoquiz: widget.argomentoquiz)));},
+                        builder: (context) => SchermataQuizFinito(scoretotale: scoretotale)));},
               ),
             ),
             SizedBox(height: 50),

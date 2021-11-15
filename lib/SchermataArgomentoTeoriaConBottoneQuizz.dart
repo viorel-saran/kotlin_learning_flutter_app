@@ -21,10 +21,10 @@ class ArgTeoBtnState extends State<ArgTeoBtn> {
 
   //prendo la teoria sotto forma di stringa dai file .txt in base al bottone premuto nella homepage
   fetchFiledata() async {
-    String risposta;
-    risposta = await rootBundle.loadString('assets/TextFiles/'+'${widget.teoria}'+'.txt');
+    String dataFromtxt;
+    dataFromtxt = await rootBundle.loadString('assets/TextFiles/'+'${widget.teoria}'+'.txt');
     setState(() {
-      data = risposta;
+      data = dataFromtxt;
     });
   }
 

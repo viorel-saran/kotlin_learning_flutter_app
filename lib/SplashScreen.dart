@@ -27,15 +27,17 @@ class splash_screen extends StatefulWidget {
 }
 
 class StartState extends State<splash_screen>{
-  @override
-  void initState(){
-    super.initState();
-    startTimer();
-  }
+
 
   startTimer() async{
     var duration = Duration(seconds: 2);
     return Timer(duration, route);
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    startTimer();
   }
 
   route(){
