@@ -34,6 +34,7 @@ int counterLambdaFunctions;
       counterArrayCollections = (prefs.getInt('scoreArrayCollections') ?? 0);
       counterClassi = (prefs.getInt('scoreClassi') ?? 0);
       counterEreditarieta = (prefs.getInt('scoreEreditarieta') ?? 0);
+      counterLambdaFunctions = (prefs.getInt('scorescoreLambdaFucntions') ?? 0);
     });
   }
 
