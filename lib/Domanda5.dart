@@ -97,6 +97,7 @@ class _Q5State extends State<Q5> {
       counterArrayCollections = (prefs.getInt('scoreArrayCollections') ?? 0);
       counterClassi = (prefs.getInt('scoreClassi') ?? 0);
       counterEreditarieta = (prefs.getInt('scoreEreditarieta') ?? 0);
+      counterLambdaFunctions = (prefs.getInt('scorescoreLambdaFucntions') ?? 0);
     });
   }
 
@@ -131,7 +132,7 @@ class _Q5State extends State<Q5> {
     if (widget.argomentoquiz == 'ereditarieta' && scoreparziale > counterEreditarieta) {
         save('scoreEreditarieta', scoreparziale);}
     if (widget.argomentoquiz == 'lambda_functions' && scoreparziale > counterLambdaFunctions) {
-        save('scoreLambdaFucntions', scoreparziale);}
+        save('scoreLambdaFunctions', scoreparziale);}
     if (widget.argomentoquiz == 'nullsafety' && scoreparziale > counterNullSafety) {
         save('scoreNullSafety', scoreparziale);}
     if (widget.argomentoquiz == 'funzioni' && scoreparziale > counterfunzioni) {
